@@ -1,0 +1,252 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #fff;
+  color: #222;
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.logo span {
+  color: #1db954; /* green accent */
+}
+
+.nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #1db954;
+}
+
+/* Hero Section */
+.hero {
+  background-color: #f9f9f9;
+  text-align: center;
+  padding: 6rem 1rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.btn {
+  background-color: #1db954;
+  color: #fff;
+  padding: 0.8rem 1.8rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #17a44d;
+}
+
+/* Featured Events */
+.featured-events {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.featured-events h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.event-card {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.event-card img {
+  width: 100%;
+  display: block;
+}
+
+.event-card h3 {
+  margin: 1rem;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.event-card p {
+  margin: 0 1rem 1.2rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Footer */
+.footer {
+  background-color: #f5f5f5;
+  padding: 2rem 0 1rem;
+  color: #333;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-left h4 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.social-links a {
+  margin-right: 1rem;
+  color: #1db954;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 1rem;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+}
+
+.imprint-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: black;
+    background-color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.ilink {
+    color: green;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.search-bar input[type="text"] {
+  padding: 0.8rem 1.2rem;
+  border: 1px solid #e3e3ea;
+  border-radius: 30px;
+  font-size: 1rem;
+  width: 280px;
+  outline: none;
+  transition: border .2s;
+}
+.search-bar input[type="text"]:focus {
+  border-color: #1db954;
+}
+.search-results {
+  text-align: left;
+  background: #f8fff6;
+  border-radius: 10px;
+  padding: 18px;
+  max-width: 450px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(30,185,84,0.03);
+  font-size: 1rem;
+}
+@media (max-width: 600px) {
+  .search-bar input[type="text"] { width: 100px; font-size: 0.9rem; }
+  .search-results { font-size: 0.95rem; }
+}
+/* Beautiful button tweaks major/minor */
+.btn {
+  box-shadow: 0 2px 6px rgba(30,185,84,.08);
+  letter-spacing: .02em;
+  border: none;
+  cursor: pointer;
+}

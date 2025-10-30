@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo">Event<span>Hub</span></div>
+      <nav class="nav">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Browse Events</a></li>
+          <li><a href="#">Clubs</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="maintenance/main.html">Maintenance</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content container">
+      <h1>Discover Amazing Events Near You</h1>
+      <p>Find and attend the best concerts, meetups, and parties around you.</p>
+      <form id="search-form" class="search-bar">
+        <input type="text" id="search-input" placeholder="Search for events..." />
+        <button type="submit" class="btn">Search</button>
+      </form>
+      <div id="search-results" class="search-results" style="margin-top: 1.5rem;"></div>
+      <a href="#" class="btn" id="find-events-btn">Find Events</a>
+    </div>
+  </section>
+
+  <section class="featured-events container">
+    <h2>Featured Events</h2>
+    <div class="event-grid">
+      <div class="event-card">
+        <img src="https://picsum.photos/400/250?random=1" alt="Event 1">
+        <h3>Summer Music Festival</h3>
+        <p>July 21, 2025</p>
+      </div>
+      <div class="event-card">
+        <img src="https://picsum.photos/400/250?random=2" alt="Event 2">
+        <h3>Tech Innovators Meetup</h3>
+        <p>August 5, 2025</p>
+      </div>
+      <div class="event-card">
+        <img src="https://picsum.photos/400/250?random=3" alt="Event 3">
+        <h3>Art & Design Expo</h3>
+        <p>September 12, 2025</p>
+      </div>
+      <div class="event-card">
+        <img src="https://picsum.photos/400/250?random=4" alt="Event 4">
+        <h3>Food Lovers’ Weekend</h3>
+        <p>October 2, 2025</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <h4>EventHub</h4>
+        <p>Connecting people through unforgettable events.</p>
+      </div>
+      <div class="footer-right">
+        <p>Follow us:</p>
+        <div class="social-links">
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+        <a class="ilink" href="imprint.html">Imprint</a>
+      <p>© 2025 EventHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+// Handle Search Bar Functionality
+const form = document.getElementById('search-form');
+const input = document.getElementById('search-input');
+const resultsBox = document.getElementById('search-results');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const q = input.value.trim();
+  if (!q) return;
+  const resp = await fetch('http://127.0.0.1:5000/api/search?q=' + encodeURIComponent(q));
+  const data = await resp.json();
+  if (data.results.length) {
+    // For demo, link to event by title or simply show the result (expand as needed)
+    resultsBox.innerHTML = data.results.map(ev => `<div><b>${ev.title}</b> - ${ev.date || ''}<br>${ev.description || ''}</div>`).join('<hr>');
+  } else {
+    resultsBox.textContent = 'No results found';
+  }
+});
+// Make the main button show all events
+const findBtn = document.getElementById('find-events-btn');
+findBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  const resp = await fetch('http://127.0.0.1:5000/api/events');
+  const events = await resp.json();
+  resultsBox.innerHTML = events.length ? events.map(ev => `<div><b>${ev.title}</b> - ${ev.date || ''}<br>${ev.description || ''}</div>`).join('<hr>') : 'No results found';
+});
+</script>
+</body>
+</html>
