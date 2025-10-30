@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maintenance - EventHub</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body { margin:0; display:flex; min-height:100vh; }
+    .side-navbar { width:160px; background:#fafafa; border-right:1px solid #e0e0e0; position:sticky; top:0; min-height:100vh; box-shadow:2px 0 7px 0 #e8e8ec1c; display:flex; flex-direction:column; padding:1.8rem 0 0 0; }
+    .side-navbar ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2.1rem; }
+    .side-navbar .nav-link { display:block; width:100%; color:#333; padding:0.8em 1.35em; border-radius:8px 0 0 8px; text-decoration:none; font-weight:600; font-size:1.05em; transition: background .2s, color .2s; }
+    .side-navbar .nav-link:hover { background:#e4ffe7; color:#098d43; }
+    .content { margin: 5% auto; max-width: 680px; background:#fff; padding:2.5rem 2rem 2rem; border-radius:18px; box-shadow:0 6px 32px rgba(50,50,90,.07); margin-left:160px; }
+    .card-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:1rem; margin-top:1rem; }
+    .card { border:1px solid #eee; border-radius:12px; padding:1.2rem; background:#f9fff9; box-shadow:0 1px 4px #e8e8ec46; }
+    .card a { text-decoration:none; color:#098d43; font-weight:700; }
+    @media (max-width:700px){ body{flex-direction:column;} .side-navbar{width:100%; min-height:unset; border-right:none; border-bottom:1px solid #eee; flex-direction:row; padding:0; box-shadow:none;} .content{ margin:1rem; margin-left:0; } }
+  </style>
+</head>
+<body>
+  <nav class="side-navbar">
+    <ul>
+      <li><a class="nav-link" href="create_maintenance.html">Create Event</a></li>
+      <li><a class="nav-link" href="delete_maintenance.html">Delete Event</a></li>
+      <li><a class="nav-link" href="../index.html" style="color:#1db954">← Home</a></li>
+    </ul>
+  </nav>
+  <div class="content">
+    <h2>Maintenance</h2>
+    <p>Select an action below:</p>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Create Event</h3>
+        <p>Add a new event to the database.</p>
+        <a href="create_maintenance.html">Go to Create</a>
+      </div>
+      <div class="card">
+        <h3>Delete Event</h3>
+        <p>View and remove existing events.</p>
+        <a href="delete_maintenance.html">Go to Delete</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

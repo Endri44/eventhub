@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Event - EventHub</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body { margin:0; display:flex; min-height:100vh; }
+    .side-navbar {
+      width: 160px; background: #fafafa; border-right: 1px solid #e0e0e0; min-height: 100vh; position: sticky; top: 0;
+      box-shadow: 2px 0 7px 0 #e8e8ec1c; display: flex; flex-direction: column; padding: 1.8rem 0 0 0; z-index: 2; height: 100vh;
+    }
+    .side-navbar ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2.1rem; align-items:flex-start; }
+    .side-navbar .nav-link { display:block; width:100%; color:#333; padding:0.8em 1.35em; border-radius:8px 0 0 8px; text-decoration:none; font-weight:600; font-size:1.05em; transition: background .2s, color .2s; }
+    .side-navbar .nav-link:hover, .side-navbar .nav-link:focus { background:#e4ffe7; color:#098d43; }
+    .container-page { max-width: 720px; margin: 5% auto; background: #fff; padding: 2.0rem 1.2rem 1.2rem; border-radius: 18px; box-shadow: 0 6px 32px rgba(50,50,90,.07); margin-left:160px; }
+    @media (max-width:700px){ body{flex-direction:column;} .side-navbar{ width:100%; min-height:unset; height:unset; border-right:none; border-bottom:1px solid #eee; flex-direction:row; padding:0; box-shadow:none; }
+      .side-navbar ul{ flex-direction:row; gap:.7rem; justify-content:center; align-items:stretch; width:100vw; }
+      .side-navbar .nav-link{ border-radius:0 0 8px 8px; width:auto; font-size:1em; }
+      .container-page{ margin: 1rem; margin-left:0; }
+    }
+    .status-message { text-align:center; margin: 0 0 1rem; font-weight:bold; min-height:2.2em; }
+    .event-item { background:#f5fff5; box-shadow:0 1px 4px #e8e8ec46; padding:1.2em 1em; margin:0.6em 0.2em; border-radius:10px; display:flex; justify-content:space-between; align-items:center; }
+    .delete-btn { background:#df3232; color:#fff; border:none; border-radius:20px; padding:0.5em 1.3em; cursor:pointer; font-weight:600 }
+  </style>
+</head>
+<body>
+  <nav class="side-navbar">
+    <ul>
+      <li><a class="nav-link" href="main.html">Maintenance Home</a></li>
+      <li><a class="nav-link" href="create_maintenance.html">Create Event</a></li>
+      <li><a class="nav-link" href="delete_maintenance.html">Delete Event</a></li>
+      <li><a class="nav-link" href="../index.html" style="color:#1db954">← Home</a></li>
+    </ul>
+  </nav>
+  <div class="container-page">
+    <h2>Delete Event</h2>
+    <div class="status-message" id="status"></div>
+    <div id="event-list">Loading...</div>
+  </div>
+  <script>
+    const statusMsg = document.getElementById('status');
+    const eventListDiv = document.getElementById('event-list');
+
+    async function loadEvents() {
+      eventListDiv.innerHTML = 'Loading...';
+      try {
+        const resp = await fetch('http://127.0.0.1:5000/api/events');
+        const events = await resp.json();
+        if (events.length) {
+          eventListDiv.innerHTML = events.map(ev => `
+            <div class='event-item'>
+              <span><b>${ev.title}</b><span style='color:#bbb;font-size:.95em;font-weight: normal'> (${ev.date || ''})</span></span>
+              <button class='delete-btn' onclick='deleteEvent(${ev.id})'>Delete</button>
+            </div>
+          `).join('');
+        } else {
+          eventListDiv.innerHTML = '<i>No events found.</i>';
+        }
+      } catch (e) {
+        eventListDiv.innerHTML = '<span style="color:red;">Failed to load events</span>';
+      }
+    }
+
+    async function deleteEvent(id) {
+      if (!confirm('Are you sure you want to delete this event?')) return;
+      const resp = await fetch(`http://127.0.0.1:5000/api/events/delete/${id}`, { method: 'DELETE' });
+      const res = await resp.json();
+      if (resp.ok && res.status === 'SUCCESS') {
+        loadEvents();
+        statusMsg.style.color = 'green';
+        statusMsg.textContent = 'Event deleted.';
+      } else {
+        statusMsg.style.color = 'red';
+        statusMsg.textContent = 'Could not delete event.';
+      }
+    }
+    window.deleteEvent = deleteEvent;
+    window.addEventListener('DOMContentLoaded', loadEvents);
+  </script>
+</body>
+</html>
